@@ -139,33 +139,41 @@ class _CardMatchingGameState extends State<CardMatchingGame>
         backgroundColor: const Color.fromARGB(255, 250, 196, 2),
         title: const Text('Same - The Card Game'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemCount: _cards.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () => _onCardTap(index),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 500),
-                decoration: BoxDecoration(
-                  color: _cards[index].isFaceUp
-                      ? const Color.fromARGB(255, 246, 236, 144)
-                      : Colors.red,
-                  borderRadius: BorderRadius.circular(8),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center, // Centers content vertically
+        children: [
+          const SizedBox(height: 200), // Space above the grid
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
-                child: _cards[index].isFaceUp || _cards[index].isMatched
-                    ? Image.asset(_cards[index].imagePath)
-                    : Container(),
+                itemCount: _cards.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () => _onCardTap(index),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      decoration: BoxDecoration(
+                        color: _cards[index].isFaceUp
+                            ? const Color.fromARGB(255, 246, 236, 144)
+                            : Colors.red,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: _cards[index].isFaceUp || _cards[index].isMatched
+                          ? Image.asset(_cards[index].imagePath)
+                          : Container(),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
